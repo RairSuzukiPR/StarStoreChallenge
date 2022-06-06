@@ -5,6 +5,7 @@ import { Cart } from '../pages/Cart'
 import { Profile } from '../pages/Profile'
 import { TabBar } from "../components/TabBar";
 import { HomeHeaderTitle } from "../components/HomeHeaderTitle";
+import CartStack from "./CartStack";
 
 
 const Tab = createBottomTabNavigator();
@@ -24,7 +25,7 @@ export default () => {
                 },
                 headerTitle: () => <HomeHeaderTitle />,
             }}/>
-            <Tab.Screen name="Cart" component={Cart}/>
+            <Tab.Screen name="Cart" component={CartStack} options={{headerShown: false}}/>
             <Tab.Screen name="Profile" component={Profile}/>
         </Tab.Navigator>
     );

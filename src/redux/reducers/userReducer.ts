@@ -18,10 +18,10 @@ const slice = createSlice({
         setName: (state, action: PayloadAction<string>)=> {
             state.name = action.payload;
         },
-        setAge: (state, action)=> {
+        setAge: (state, action: PayloadAction<number>)=> {
             state.age = action.payload;
         },
-        setToken: (state, action) => {
+        setToken: (state, action: PayloadAction<string>) => {
             state.token = action.payload;
         }
     }

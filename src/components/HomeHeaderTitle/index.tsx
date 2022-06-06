@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCartShopping, faHouse, faMagnifyingGlass, faPlus, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass,  } from '@fortawesome/free-solid-svg-icons';
 import * as C from './styles';
 import { useDispatch } from "react-redux";
 import { setInputText } from "../../redux/reducers/homeSearchInputReducer";

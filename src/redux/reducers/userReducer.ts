@@ -1,20 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
-type User = {
+type userState = {
+    id: number
     name: string,
     age: number,
-    toeken: string
+    token: string
 }
 
 const slice = createSlice({
     name: 'user',
     initialState: {
-        name: 'Rair',
-        age: 25,
+        id: 0,
+        name: '',
+        age: 0,
         token: '',
-    },
+    } as userState,
     reducers: {
+        setId: (state, action: PayloadAction<number>)=> {
+            state.id = action.payload;
+        },
         setName: (state, action: PayloadAction<string>)=> {
             state.name = action.payload;
         },
@@ -27,6 +32,6 @@ const slice = createSlice({
     }
 })
 
-export const { setName, setAge, setToken } = slice.actions;
+export const { setId, setName, setAge, setToken } = slice.actions;
 
 export default slice.reducer;

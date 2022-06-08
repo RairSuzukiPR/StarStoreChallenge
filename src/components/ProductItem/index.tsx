@@ -38,7 +38,7 @@ export const ProductItem = ( props: Props ) => {
                 <C.InfoArea>
                     <C.ItemTitle>{props.item.title}</C.ItemTitle>
                     <C.PriceAndButtonArea>
-                        <C.Price>R$ {props.item.price.toFixed(2)}</C.Price>
+                        <C.Price>R$ {props.item.price.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.Price>
                         <C.AddCartBtn 
                             onPress={() => dispatch(addItem({...props.item, quantity: 1}))}
                         >

@@ -26,10 +26,8 @@ const slice = createSlice({
 
             if (hasIt){
                 state.items[indexOfItem].quantity += action.payload.quantity;
-                // state.totalItems += action.payload.quantity;
             } else {
                 state.items.push(action.payload);
-                // state.totalItems += action.payload.quantity;
             }
             state.totalItems += action.payload.quantity;
             state.totalPrice += action.payload.price * action.payload.quantity;
@@ -60,11 +58,11 @@ const slice = createSlice({
                 }
             }
         },
-        removeAllItems: (state) => {
+        resetCart: (state) => {
             state.items = [];
             state.totalItems = 0;
             state.totalPrice = 0;
-        },
+        }
     }
 })
 
@@ -80,24 +78,6 @@ const hasItem = (items: ItemWithQuantity[], payload: ItemWithQuantity) => {
     return {hasIt, indexOfItem};
 }
 
-export const {addItem, removeItem, changeItemQuantity, removeAllItems} = slice.actions;
+export const {addItem, removeItem, changeItemQuantity, resetCart} = slice.actions;
 
 export default slice.reducer;
-
-
-// let isNew = true;
-
-// state.items.filter((item) => {
-//     let itemStr = JSON.stringify(item)
-//     let payloadStr = JSON.stringify(action.payload)
-//     if (itemStr == payloadStr) {
-//         item.quantity = item.quantity + 1;
-//         state.totalItems = state.totalItems + 1;
-//         isNew = false;
-//     }
-// });
-
-// if(isNew){
-//     state.items.push(action.payload);
-//     state.totalItems = state.totalItems + action.payload.quantity
-// }

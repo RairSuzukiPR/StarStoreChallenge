@@ -1,7 +1,7 @@
 import * as C from './styles'
 import React from "react";
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
-import { removeAllItems } from '../../redux/reducers/cartReducer';
+import { resetCart } from '../../redux/reducers/cartReducer';
 
 
 export const EmptyCart = () => {
@@ -10,7 +10,7 @@ export const EmptyCart = () => {
     return (
         <C.Container
             activeOpacity={0.7}
-            onPress={() => dispatch(removeAllItems())}
+            onPress={() => dispatch(resetCart())}
         >
             <C.TextBtn>Limpar Carrinho</C.TextBtn>
         </C.Container>

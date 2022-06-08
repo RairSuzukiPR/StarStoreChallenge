@@ -67,7 +67,7 @@ export const ProductModal = ({visibility, item, validImg, closeModalFunc}: Props
                             <C.ProductInfo>Data: {item.date}</C.ProductInfo>
                             <C.ProductInfo>Vendedor: {item.seller}</C.ProductInfo>
                             <C.ProductInfo>cep: {item.zipcode}</C.ProductInfo>
-                            <C.Price>R$ {totalPrice.toFixed(2)}</C.Price>
+                            <C.Price>R$ {totalPrice.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.Price>
                             <C.QuantityArea>
                                 <C.QuantityIconArea 
                                     activeOpacity={0.7}

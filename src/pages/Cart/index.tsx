@@ -2,18 +2,33 @@ import * as C from './styles'
 import React, { useState } from "react";
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
-import { changeItemQuantity, removeAllItems, removeItem } from '../../redux/reducers/cartReducer';
+import { changeItemQuantity, removeItem } from '../../redux/reducers/cartReducer';
 import { ItemWithQuantity } from '../../types/ItemWithQuantity';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCartShopping, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Alert } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
+import { RootStackParamList } from '../RootStackPrams';
 
 
+type paymentScreenProp = NativeStackNavigationProp<RootStackParamList, 'PaymentScreen'>;
 
 export const Cart = () => {
     const [validImg, setValidImg] = useState(true);
+    const [zipCode, setZipCode] = useState('');
     const cart = useAppSelector(state => state.cartReducer)
     const dispatch = useAppDispatch();
+    const navigation = useNavigation<paymentScreenProp>();
 
+    const redirectToPayment = () => {
+        if (zipCode.length != 8){
+            Alert.alert('Dados incompletos!', 'Favor preencher o CEP');
+        } 
+        else {
+            navigation.navigate('PaymentScreen');
+        }
+    }
 
     return(
         <C.Container numItems={cart.totalItems}>
@@ -34,7 +49,7 @@ export const Cart = () => {
                                 <C.InfoView>
                                     <C.TopInfo>
                                         <C.Title>{item.title}</C.Title>
-                                        <C.Price>R$ {item.price}</C.Price>
+                                        <C.FinalPrice>R$ {item.price.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.FinalPrice>
                                     </C.TopInfo>
                                     <C.BottomInfo>
                                         <C.Seller>Vendedor: {item.seller}</C.Seller>
@@ -66,6 +81,9 @@ export const Cart = () => {
                             <C.ZipCodeInput 
                                 placeholder="XXXXX-XXX" 
                                 keyboardType="numeric"
+                                maxLength={8}
+                                value={zipCode}
+                                onChangeText={text => setZipCode(text)}
                             />
                         </C.RowItems>
                     </C.ZipCodeView>
@@ -73,7 +91,7 @@ export const Cart = () => {
                     <C.PurchaseResumeView>
                         <C.RowItems>
                             <C.TextField>Subtotal</C.TextField>
-                            <C.Price>R$ {cart.totalPrice.toFixed(2)}</C.Price>
+                            <C.Price>R$ {cart.totalPrice.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.Price>
                         </C.RowItems>
                         <C.RowItems>
                             <C.TextField>Frete</C.TextField>
@@ -82,12 +100,13 @@ export const Cart = () => {
                         <C.Line></C.Line>
                         <C.RowItems>
                             <C.TextField>Total</C.TextField>
-                            <C.Price>R$ {(cart.totalPrice + 29.99).toFixed(2)}</C.Price>
+                            <C.FinalPrice>R$ {(cart.totalPrice + 29.99).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.FinalPrice>
                         </C.RowItems>
                     </C.PurchaseResumeView>
 
                     <C.GoToPaymentBtn
                         activeOpacity={0.7}
+                        onPress={redirectToPayment}
                     >
                         <C.BtnText>Ir para o pagamento</C.BtnText>
                     </C.GoToPaymentBtn>

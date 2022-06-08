@@ -63,6 +63,11 @@ export const Title = styled.Text`
 `;
 
 export const Price = styled.Text`
+    font-size: 14px;
+    color: #000;
+`;
+
+export const FinalPrice = styled.Text`
     font-size: 16px;
     font-weight: bold;
     color: #E22328;

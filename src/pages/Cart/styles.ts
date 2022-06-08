@@ -124,7 +124,7 @@ export const RowItems = styled.View`
 `;
 
 export const ZipCodeInput = styled.TextInput`
-    padding: 5px 12px;
+    padding: 5px 5px 5px 15px;
     background-color: #EEE;
     border-radius: 7px;
     font-size: 16px;

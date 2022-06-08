@@ -4,10 +4,10 @@ import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { ItemWithQuantity } from '../../types/ItemWithQuantity';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+import { ItemsList } from '../../components/ItemsList';
 
 export const ConfirmedOrder = () => {
     const lastOrder = useAppSelector(state => state.orderReducer) //alterar pro ultimo index
-    const [validImg, setValidImg] = useState(true);
 
     useEffect(()=> {
         console.log(lastOrder.allOrders.length)
@@ -16,34 +16,6 @@ export const ConfirmedOrder = () => {
     return (
         <C.Container>
             <C.ScrollViewArea>
-                {lastOrder.allOrders[lastOrder.allOrders.length-1].items.length > 0 &&
-                    <C.CartItemsView>
-                        {lastOrder.allOrders[lastOrder.allOrders.length-1].items.map((item: ItemWithQuantity, index: number) => (
-                            <C.ProductItemView key={index}>
-                                <C.ImageView>
-                                    <C.ImageItem 
-                                        onError={() => setValidImg(false)}
-                                        // source={validImg? {uri: item.thumbnailHd} : (require('./../../assets/images/default_item.png'))}
-                                        source={{uri: item.thumbnailHd}}
-                                        isValid={validImg}
-                                    />
-                                </C.ImageView>
-        
-                                <C.InfoView>
-                                    <C.TopInfo>
-                                        <C.Title>{item.title}</C.Title>
-                                        <C.FinalPrice>R$ {item.price.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.FinalPrice>
-                                    </C.TopInfo>
-                                    <C.BottomInfo>
-                                        <C.BottomText>Vendedor: {item.seller}</C.BottomText>
-                                        <C.BottomText>CEP: {item.zipcode}</C.BottomText>
-                                        <C.BottomText>Quantidade: {item.quantity}</C.BottomText>
-                                    </C.BottomInfo>
-                                </C.InfoView>
-                            </C.ProductItemView>
-                        ))}
-                    </C.CartItemsView>
-                }
                 <C.ConfirmView>
                     <C.ConfirmTitle>Pedido confirmado! <FontAwesomeIcon icon={faSquareCheck}/>
                         
@@ -55,6 +27,9 @@ export const ConfirmedOrder = () => {
                         </C.ConfirmPrice>
                     </C.AmountInfo>
                 </C.ConfirmView>
+                {lastOrder.allOrders[lastOrder.allOrders.length-1].items.length > 0 &&
+                    <ItemsList items={lastOrder.allOrders[lastOrder.allOrders.length-1].items}/>
+                }
             </C.ScrollViewArea>
         </C.Container>
     );

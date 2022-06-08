@@ -1,21 +1,24 @@
 import styled from "styled-components/native";
+import React from "react";
 import { Dimensions } from "react-native";
 
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
     flex: 1;
+    background-color: gray;
 `;
 
 export const ScrollViewArea = styled.ScrollView`
     flex: 1;
 `;
 
-export const CartItemsView = styled.View`
+
+export const OrderItemsView = styled.View`
     flex: 1;
     background-color: #fff;
     border-radius: 15px;
     elevation: 4;
-    margin: 0 20px 20px 20px;
+    margin: 20px;
     padding: 10px;
 `;
   
@@ -80,21 +83,27 @@ export const BottomText = styled.Text`
 
 export const ConfirmView = styled.View`
     background-color: #fff;
-    margin: 20px;
+    margin: 20px 20px 0 20px;
     padding: 15px;
     border-radius: 15px;
     elevation: 4;
 `;
 
 export const ConfirmTitle = styled.Text`
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     color: #000;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     margin-right: 10px;
 `;
 
 export const ConfirmText = styled.Text`
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 5px;
+`;
+
+export const ConfirmTextTotal = styled.Text`
     font-size: 14px;
     font-weight: bold;
     color: #000;
@@ -106,6 +115,11 @@ export const AmountInfo = styled.View`
 `;
 
 export const ConfirmPrice = styled.Text`
+    font-size: 14px;
+    color: #000;
+`;
+
+export const ConfirmPriceTotal = styled.Text`
     font-size: 14px;
     font-weight: bold;
     color: #E22328;

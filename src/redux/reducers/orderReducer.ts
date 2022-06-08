@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'; 
-import { ItemWithQuantity } from '../../types/ItemWithQuantity';
+import { Order } from '../../types/Order';
 
-type Order = {
-    cardNumber: number,
-    nameCardOwner: string,
-    validThru: string,
-    cvv: number,
-    totalPrice: number,
-    items: ItemWithQuantity[],
-}
 
 type stateOrder = {
     idUserOrder: number,

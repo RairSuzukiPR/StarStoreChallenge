@@ -7,12 +7,16 @@ import { Payment } from "../pages/Payment";
 import { ConfirmedOrder } from "../pages/ConfirmedOrder";
 import { useNavigation } from "@react-navigation/native";
 import { StackActions } from '@react-navigation/native';
+import { useAppSelector } from "../redux/hooks/useAppSelector";
+import { RootStackParamList } from "../pages/RootStackPrams";
 
 
-const CartStack = createNativeStackNavigator();
+const CartStack = createNativeStackNavigator<RootStackParamList>();
 
 export default () => {
     const navigation = useNavigation<any>();
+    const cart = useAppSelector(state => state.cartReducer)
+
     return(
         <CartStack.Navigator>
             <CartStack.Screen name="CartScreen" component={Cart} options={{
@@ -20,7 +24,7 @@ export default () => {
                 headerTitleStyle: {
                     fontSize: 22
                 },
-                headerRight: () => <EmptyCart />
+                headerRight: () => cart.items.length > 0 ? <EmptyCart /> : <></>
             }}/>
             <CartStack.Screen name="PaymentScreen" component={Payment} options={{
                 headerTitle: "Pagamento",
@@ -42,7 +46,6 @@ export default () => {
                     style={{marginLeft: -5}}
                     />
                   ),
-                // headerBackVisible: false,
                 headerTitleAlign: 'center'
             }}/>
         </CartStack.Navigator>

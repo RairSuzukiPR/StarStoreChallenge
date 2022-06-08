@@ -51,13 +51,15 @@ export const TopInfo = styled.View`
 `;
 
 export const Title = styled.Text`
-    font-size: 22px;
+    flex: 1;
+    font-size: 21px;
     font-weight: bold;
     color: #000;
     margin-bottom: 5px;
 `;
 
 export const CloseModalBtn = styled.TouchableOpacity`
+    width: 12px;
 `;
 
 export const BottomInfo = styled.View`

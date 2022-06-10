@@ -17,7 +17,7 @@ export const ModalArea = styled.View`
 export const ModalBody = styled.View`
     background-color: #fff; 
     width: 95%;
-    height: ${(Dimensions.get('window').height) * 0.35}px;
+    height: ${(Dimensions.get('window').height) * 0.30}px;
     border-radius: 15px;
     flex-direction: row;
 
@@ -26,7 +26,6 @@ export const ModalBody = styled.View`
 export const ImageArea = styled.View`
     flex:1.3;
     padding: 10px;
-    
 `;
 
 export const ImageItem = styled.Image<{isValid: boolean}>`
@@ -41,7 +40,7 @@ export const ImageItem = styled.Image<{isValid: boolean}>`
 
 export const InfoArea = styled.View`
     flex:1;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 10px;
 `;
 
@@ -52,18 +51,14 @@ export const TopInfo = styled.View`
 
 export const Title = styled.Text`
     flex: 1;
-    font-size: 21px;
+    font-size: 22px;
     font-weight: bold;
     color: #000;
     margin-bottom: 5px;
 `;
 
-export const CloseModalBtn = styled.TouchableOpacity`
-    width: 12px;
-`;
-
 export const BottomInfo = styled.View`
-
+    margin-top: 15px;
 `;
 
 export const ProductInfo = styled.Text`
@@ -73,40 +68,8 @@ export const ProductInfo = styled.Text`
 `;
 
 export const Price = styled.Text`
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: #E22328;
-    margin-bottom: 5px;
-`;
-
-export const QuantityArea = styled.View`
-    flex-direction: row;
-    margin-bottom: 10px;
-`;
-
-export const Quantity = styled.Text`
-    margin: 0 7px;
-    color: #000;
-`;
-
-export const QuantityIconArea = styled.TouchableOpacity`
-    border: 1px solid black;
-    align-items: center;
-    justify-content:center;
-    border-radius: 5px;
-`;
-
-export const AddCartBtn = styled.TouchableOpacity`
-    background-color: #1A1A1A;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    border-radius: 5px;
-`;
-
-export const BtnText = styled.Text`
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
+    margin: 10px 0;
 `;

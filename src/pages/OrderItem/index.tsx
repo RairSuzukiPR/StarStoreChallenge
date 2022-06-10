@@ -7,7 +7,6 @@ import { ItemsList } from '../../components/ItemsList';
 
 
 export const OrderItem = () => {
-    const [validImg, setValidImg] = useState(false);
     const orders = useAppSelector(state => state.orderReducer.allOrders)
     const route = useRoute<any>(); // arrumar o any
 

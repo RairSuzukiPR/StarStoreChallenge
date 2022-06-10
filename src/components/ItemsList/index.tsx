@@ -1,25 +1,24 @@
 import * as C from './styles'
 import React, { useState } from "react";
 import { ItemWithQuantity } from '../../types/ItemWithQuantity';
+import { RenderImage } from '../RenderImage';
 
 type Props = {
     items: ItemWithQuantity[]
 }
 
 export const ItemsList = ({items}: Props) => {
-    const [validImg, setValidImg] = useState(false);
+
     
     return(
         <C.Container>
-            {items.map((item: ItemWithQuantity, index2: number) => (
-                <C.ProductItemView key={index2}>
+            {items.map((item: ItemWithQuantity, index2: number) => {
+
+
+                return (
+                    <C.ProductItemView key={index2}>
                     <C.ImageView>
-                        <C.ImageItem 
-                            onError={() => setValidImg(false)}
-                            // source={validImg? {uri: item.thumbnailHd} : (require('./../../assets/images/default_item.png'))}
-                            source={{uri: item.thumbnailHd}}
-                            isValid={validImg}
-                        />
+                        <RenderImage url={item.thumbnailHd}/>
                     </C.ImageView>
 
                     <C.InfoView>
@@ -34,7 +33,8 @@ export const ItemsList = ({items}: Props) => {
                         </C.BottomInfo>
                     </C.InfoView>
                 </C.ProductItemView>
-            ))}
+                );
+            })}
         </C.Container> 
     );
 }

@@ -1,9 +1,13 @@
 import styled from "styled-components/native";
 import React from "react";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.SafeAreaView<{isEmpty: boolean}>`
     flex: 1;
-    background-color: gray;
+
+    ${props => props.isEmpty &&`
+        justify-content: center;
+        align-items: center;
+    `}
 `;
 
 export const ScrollViewArea = styled.ScrollView`
@@ -47,4 +51,3 @@ export const ShowFullOrderView = styled.View`
 export const FixView = styled.View`
     margin-bottom: 20px;
 `;
-

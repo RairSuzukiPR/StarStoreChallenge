@@ -1,16 +1,20 @@
 import * as C from './styles';
 import React, {useEffect, useState} from 'react';
-import {ProductItem} from '../../components/ProductItem';
+import {ProductItemHome} from '../../components/ProductItemHome';
 import {api} from '../../api';
 import { useAppSelector } from "../../redux/hooks/useAppSelector";
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { Item } from './../../types/Item'
+import { setItems } from '../../redux/reducers/itemsReducer';
 
 
 export const Home = () => {
-	const [items, setItems] = useState<Item[]>([]);
+	const items = useAppSelector(state => state.itemsReducer.items);;
 	const [filtItems, setFiltItems] = useState<Item[]>([]);
 	const [loading, setLoading] = useState(true);
-
+	const [enableScroll, setEnableScroll] = useState(true);
+	
+	const dispatch = useAppDispatch();
 	const inputText = useAppSelector(state => state.homeSearchInputReducer);
 
 	
@@ -19,7 +23,7 @@ export const Home = () => {
 			setLoading(true);
 			let json: Item[] = await api.getItems();
 			if (json) {
-				setItems(json);
+				dispatch(setItems(json))
 				setFiltItems(json);
 			}
 			setLoading(false);
@@ -48,13 +52,16 @@ export const Home = () => {
 				<C.Items
 				data={filtItems}
 				numColumns={2}
-				renderItem = {({item}) => ( 
-					<ProductItem 
+				renderItem = {({item, index}) => ( 
+					<ProductItemHome 
 						item={item}
+						index={index}
+						setEnableScroll={setEnableScroll}
 					/> 
 				)}
 				showsVerticalScrollIndicator={false}
 				contentContainerStyle={{ paddingBottom: 16 }}
+				scrollEnabled={enableScroll}
 				/>
 			</>
 			)}

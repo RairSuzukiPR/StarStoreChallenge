@@ -41,10 +41,8 @@ export const ProductModal = ({visibility, item, validImg, closeModalFunc}: Props
             transparent={true}
             onRequestClose={() => closeModalFunc()}
         >
-
             <C.ModalArea>
                 <C.ModalBody>
-
                     <C.ImageArea>
                         <C.ImageItem 
                             source={validImg? {uri: item.thumbnailHd} : (require('./../../assets/images/default_item.png'))}
@@ -55,12 +53,6 @@ export const ProductModal = ({visibility, item, validImg, closeModalFunc}: Props
                     <C.InfoArea>
                         <C.TopInfo style={{alignItems: 'flex-start'}}> 
                             <C.Title>{item.title}</C.Title>
-                            <C.CloseModalBtn 
-                                onPress={() => closeModalFunc()}
-                                activeOpacity={0.7}
-                            >
-                                <FontAwesomeIcon icon={faTimes} style={{color: 'rgba(0,0,0,0.7)'}}/>
-                            </C.CloseModalBtn>
                         </C.TopInfo>
 
                         <C.BottomInfo>
@@ -68,33 +60,7 @@ export const ProductModal = ({visibility, item, validImg, closeModalFunc}: Props
                             <C.ProductInfo>Vendedor: {item.seller}</C.ProductInfo>
                             <C.ProductInfo>cep: {item.zipcode}</C.ProductInfo>
                             <C.Price>R$ {totalPrice.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.Price>
-                            <C.QuantityArea>
-                                <C.QuantityIconArea 
-                                    activeOpacity={0.7}
-                                    onPress={decQuantity}
-                                >
-                                    <FontAwesomeIcon icon={faMinus} style={{}}/>
-                                </C.QuantityIconArea>
-                                <C.Quantity>{quantity}</C.Quantity>
-                                <C.QuantityIconArea 
-                                    activeOpacity={0.7}
-                                    onPress={incQuantity}
-                                >
-                                    <FontAwesomeIcon icon={faPlus} style={{}}/>
-                                </C.QuantityIconArea>
-                            </C.QuantityArea>
                         </C.BottomInfo>
-                        <C.AddCartBtn
-                                activeOpacity={0.7}
-                                onPress={() => {
-                                    // console.log(quantity)
-                                    dispatch(addItem({...item, quantity: quantity}))
-                                    closeModalFunc()
-                                    setQuantity(1);
-                                }}
-                            >
-                                <C.BtnText>Adicionar ao carrinho</C.BtnText>
-                            </C.AddCartBtn>
                     </C.InfoArea>
 
                 </C.ModalBody>

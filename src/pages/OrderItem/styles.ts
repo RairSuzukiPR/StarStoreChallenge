@@ -5,7 +5,6 @@ import { Dimensions } from "react-native";
 
 export const Container = styled.SafeAreaView`
     flex: 1;
-    background-color: gray;
 `;
 
 export const ScrollViewArea = styled.ScrollView`

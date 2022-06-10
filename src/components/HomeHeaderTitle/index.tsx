@@ -2,12 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faMagnifyingGlass,  } from '@fortawesome/free-solid-svg-icons';
 import * as C from './styles';
-import { useDispatch } from "react-redux";
 import { setInputText } from "../../redux/reducers/homeSearchInputReducer";
+import { useAppDispatch } from "../../redux/hooks/useAppDispatch";
 
 
 export const HomeHeaderTitle = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
 
     return (

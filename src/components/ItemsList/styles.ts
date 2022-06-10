@@ -23,16 +23,6 @@ export const ImageView = styled.View`
     margin-right: 10px;
 `;
 
-export const ImageItem = styled.Image<{isValid: boolean}>`
-    flex: 1;
-    border-radius: 12px;
-    ${props => !props.isValid &&
-        `width: 100%;
-        height: 100%;
-        resizeMode: contain;`
-    }
-`;
-
 export const InfoView = styled.View`
     flex: 1;
     justify-content: space-between;

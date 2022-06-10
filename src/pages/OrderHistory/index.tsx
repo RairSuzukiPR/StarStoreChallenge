@@ -16,8 +16,9 @@ export const OrderHistory = () => {
     const navigation = useNavigation<OrderItemScreenProp>();
 
     return(
-        <C.Container>
-            <C.ScrollViewArea>
+        <C.Container isEmpty={orders.length == 0}>
+            {orders.length > 0 && 
+                <C.ScrollViewArea>
                 {orders.map((order: Order, index: number) => (
                     <C.OrderItemView key={index}
                         activeOpacity={0.7}
@@ -37,6 +38,10 @@ export const OrderHistory = () => {
                 ))}
                 <C.FixView></C.FixView>
             </C.ScrollViewArea>
+            }
+            {orders.length == 0 && 
+                <C.InfoText>Você ainda não possui compras.</C.InfoText>
+            }
         </C.Container>
     );
 }

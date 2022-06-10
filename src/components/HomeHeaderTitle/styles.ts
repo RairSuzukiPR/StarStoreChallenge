@@ -2,17 +2,17 @@ import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
     flex-direction: column;
-    /* background-color: #f00; */
     flex: 1;
     align-items: center;
     justify-content: center;
-    min-width: 100%;
+    margin-right: 35px;
 `;
 
 export const TextField = styled.Text`
     color: #000;
     font-family: 'SfDistantGalaxy';
     font-size: 28px;
+    margin-top: 5px;
 `;
 
 export const TextInputField = styled.TextInput`
@@ -23,6 +23,7 @@ export const TextInputField = styled.TextInput`
     font-size: 16px;
     padding: 10px 10px 10px 35px;
     border-radius: 7px;
+    margin-bottom: 10px;
 `;
 
 export const Icon = styled.Text`
@@ -32,5 +33,4 @@ export const Icon = styled.Text`
 `;
 
 export const ViewArea = styled.View`
-
 `;

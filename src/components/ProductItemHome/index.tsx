@@ -2,21 +2,30 @@ import * as C from './styles'
 import React, { useState } from "react";
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { ProductModal } from './../ProductModal'
-import { Item } from './../../types/Item'
+import { ProductModal } from '../ProductModal'
+import { Item } from '../../types/Item'
 import { addItem } from '../../redux/reducers/cartReducer';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
+import { RootStackParamList } from '../../pages/RootStackPrams';
 
 
 type Props = {
-    item: Item
+    item: Item,
+    index: number,
+    setEnableScroll: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ProductItem = ( props: Props ) => {
+type productItemPage = NativeStackNavigationProp<RootStackParamList, 'ProductItemScreen'>;
+
+export const ProductItemHome = ( props: Props ) => {
     const [validImg, setValidImg] = useState(true);
     const [modalVisibility, setModalVisibility] = useState(false);
 
     const dispatch = useAppDispatch();
+
+    const navigation = useNavigation<productItemPage>(); 
 
     const closeModal = () => {
         setModalVisibility(false)
@@ -25,9 +34,12 @@ export const ProductItem = ( props: Props ) => {
     return(
         <>
             <C.Container 
-                onPress={()=> setModalVisibility(true)}
-                activeOpacity={0.7}
-            >
+                onPress={()=> navigation.navigate('ProductItemScreen', {index: props.index})} //criar uma nova pag mandando o index como parms
+                onLongPress={()=> {setModalVisibility(true); props.setEnableScroll(false)}}
+                onPressOut={()=> {setModalVisibility(false); props.setEnableScroll(true)}}
+                pressRetentionOffset={400}
+                delayLongPress={350}
+                >
                 <C.ImageArea>
                     <C.ImageItem 
                         onError={() => setValidImg(false)}
@@ -52,7 +64,7 @@ export const ProductItem = ( props: Props ) => {
                 visibility={modalVisibility} 
                 item={props.item} validImg={validImg} 
                 closeModalFunc={closeModal} 
-            />
+            /> 
         </>
     );
 }

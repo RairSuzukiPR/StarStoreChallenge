@@ -16,53 +16,66 @@ import { RootStackParamList } from '../RootStackPrams';
 type confirmedOrderScreenProp = NativeStackNavigationProp<RootStackParamList, 'ConfirmedOrderScreen'>;
 
 export const Payment = () => {
-    const [validThru, setValidThru] = useState('');
-    const [cvv, setCvv] = useState('');
-    const [nameCardOwner, setNameCardOwner] = useState(''); // arrumar
-    const [cardNumber1, setCardNumber1] = useState(''); // arrumar
-    const [cardNumber2, setCardNumber2] = useState('');
-    const [cardNumber3, setCardNumber3] = useState('');
-    const [cardNumber4, setCardNumber4] = useState('');
-    
-    const refInputValid: MutableRefObject<any> = useRef(); 
-    const refInputCvv: MutableRefObject<any> = useRef(); //typar correto dps
+    const [card, setCard] = useState({
+        validThru: '',
+        cvv: '',
+        nameCardOwner: '',
+        cardNumber1: '',
+        cardNumber2: '',
+        cardNumber3: '',
+        cardNumber4: '', 
+    })    
+    const refInputValid: MutableRefObject<any> = useRef();  //typar correto dps
+    const refInputCvv: MutableRefObject<any> = useRef(); 
     const refInputCard1: MutableRefObject<any> = useRef();
     const refInputCard2: MutableRefObject<any> = useRef();
     const refInputCard3: MutableRefObject<any> = useRef();
     const refInputCard4: MutableRefObject<any> = useRef();
 
-    const cart = useAppSelector(state=> state.cartReducer);
-    const user = useAppSelector(state=> state.userReducer);
-    const order = useAppSelector(state=> state.orderReducer);
+    const cart = useAppSelector(state => state.cartReducer);
+    const user = useAppSelector(state => state.userReducer);
     const dispatch = useAppDispatch();
     
     const navigation = useNavigation<confirmedOrderScreenProp>();
 
     const isEveryCampFilled = () => { // melhor forma?
-        if (nameCardOwner !== '' && validThru.length == 4 && cvv.length == 3 && 
-            cardNumber1.length == 4 && cardNumber2.length == 4 && 
-            cardNumber3.length == 4 && cardNumber4.length == 4 ){
-                return true;
+        let hasError = false
+
+        if (!(card.nameCardOwner !== '' && card.validThru.length == 5 && card.cvv.length == 3 && 
+            card.cardNumber1.length == 4 && card.cardNumber2.length == 4 && 
+            card.cardNumber3.length == 4 && card.cardNumber4.length == 4 )){
+                Alert.alert('Dados incompletos!', 'Favor preencher todos os dados.');
+                hasError = true;
         }
-        Alert.alert('Dados incompletos!', 'Favor preencher todos os dados.');
-        return false;
+
+        if (/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(card.validThru)){
+            Alert.alert('Dados inconsistentes!', 'Favor preencher a data de expiração corretamente.');
+            hasError = true;
+        }
+
+        return hasError;
     }
 
     const saveDataAndRedirect = () => {
         dispatch(setIdUserOrder(user.id));
         dispatch(saveOrder({
-            cardNumber: parseInt(cardNumber1+cardNumber2+cardNumber3+cardNumber4),
-            nameCardOwner,
-            validThru,
-            cvv: parseInt(cvv),
+            cardNumber: parseInt(card.cardNumber1+card.cardNumber2+card.cardNumber3+card.cardNumber4),
+            nameCardOwner: card.nameCardOwner,
+            validThru: card.validThru,
+            cvv: parseInt(card.cvv),
             totalPrice: cart.totalPrice,
             items: cart.items,
         }));
         dispatch(resetCart());
-        //redirect to confirmed order
+        // redirect to confirmed order
         navigation.navigate('ConfirmedOrderScreen'); //mandar essa compra por aqui direto e evitar de puxar na outra pagina e usar a outra pagina pra exibir qualquer pedido via props
-        
     }
+
+    useEffect(()=> {
+        if (/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(card.validThru)){
+            console.log('aasdasda')
+        }
+    }, [card])
 
     return (
         <C.Container>
@@ -71,8 +84,8 @@ export const Payment = () => {
                     <C.CardOwnerNameInput 
                         placeholder="Nome impresso no cartão"
                         returnKeyType='next'
-                        value={nameCardOwner}
-                        onChangeText={text => setNameCardOwner(text)}
+                        value={card.nameCardOwner}
+                        onChangeText={text => /^[a-zA-Z\s]*$/.test(text) ? setCard({...card, nameCardOwner: text}) : ''}
                         blurOnSubmit={false}
                         onSubmitEditing={() => refInputValid.current.focus()}
                     />
@@ -88,9 +101,9 @@ export const Payment = () => {
                                     placeholder="MM/aa" 
                                     keyboardType="numeric" 
                                     returnKeyType='next'
-                                    maxLength={4}
-                                    value={validThru}
-                                    onChangeText={text => setValidThru(text)}
+                                    maxLength={5}
+                                    value={card.validThru}
+                                    onChangeText={text => setCard({...card, validThru: text.replace(/\D/g,"").replace(/(\d{2})(\d)/,"$1/$2")})}
                                     blurOnSubmit={false}
                                     onSubmitEditing={() => refInputCvv.current.focus()}
                                 />
@@ -103,8 +116,8 @@ export const Payment = () => {
                                     keyboardType="numeric"
                                     returnKeyType='next'
                                     maxLength={3}
-                                    value={cvv}
-                                    onChangeText={text => setCvv(text)}
+                                    value={card.cvv}
+                                    onChangeText={text => setCard({...card, cvv: text})}
                                     blurOnSubmit={false}
                                     onSubmitEditing={() => refInputCard1.current.focus()}
                                 />
@@ -115,8 +128,8 @@ export const Payment = () => {
                                 ref={refInputCard1}
                                 placeholder="XXXX" 
                                 keyboardType="numeric"
-                                value={cardNumber1}
-                                onChangeText={text => setCardNumber1(text)}
+                                value={card.cardNumber1}
+                                onChangeText={text => setCard({...card, cardNumber1: text})}
                                 returnKeyType='next'
                                 maxLength={4}
                                 blurOnSubmit={false}
@@ -126,8 +139,8 @@ export const Payment = () => {
                                 ref={refInputCard2}
                                 placeholder="XXXX" 
                                 keyboardType="numeric"
-                                value={cardNumber2}
-                                onChangeText={text => setCardNumber2(text)}
+                                value={card.cardNumber2}
+                                onChangeText={text => setCard({...card, cardNumber2: text})}
                                 returnKeyType='next'
                                 maxLength={4}
                                 blurOnSubmit={false}
@@ -137,8 +150,8 @@ export const Payment = () => {
                                 ref={refInputCard3}
                                 placeholder="XXXX" 
                                 keyboardType="numeric"
-                                value={cardNumber3}
-                                onChangeText={text => setCardNumber3(text)}
+                                value={card.cardNumber3}
+                                onChangeText={text => setCard({...card, cardNumber3: text})}
                                 returnKeyType='next'
                                 maxLength={4}
                                 blurOnSubmit={false}
@@ -148,8 +161,8 @@ export const Payment = () => {
                                 ref={refInputCard4}
                                 placeholder="XXXX" 
                                 keyboardType="numeric"
-                                value={cardNumber4}
-                                onChangeText={text => setCardNumber4(text)}
+                                value={card.cardNumber4}
+                                onChangeText={text => setCard({...card, cardNumber4: text})}
                                 maxLength={4}
                             />                        
                         </C.CardNumberView>

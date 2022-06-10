@@ -1,5 +1,5 @@
 import * as C from './styles'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { changeItemQuantity, removeItem } from '../../redux/reducers/cartReducer';
@@ -10,22 +10,24 @@ import { Alert } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { RootStackParamList } from '../RootStackPrams';
+import { RenderImage } from './../../components/RenderImage'
 
 
 type paymentScreenProp = NativeStackNavigationProp<RootStackParamList, 'PaymentScreen'>;
 
 export const Cart = () => {
-    const [validImg, setValidImg] = useState(true);
     const [zipCode, setZipCode] = useState('');
     const cart = useAppSelector(state => state.cartReducer)
     const dispatch = useAppDispatch();
     const navigation = useNavigation<paymentScreenProp>();
 
     const redirectToPayment = () => {
-        if (zipCode.length != 8){
+        if (zipCode.length != 9 ){
             Alert.alert('Dados incompletos!', 'Favor preencher o CEP');
-        } 
-        else {
+        } else if (!/^\d{5}-?\d{3}$/.test(zipCode)){
+            Alert.alert('Dados incorretos!', 'Favor preencher o CEP corretamente');
+        } else {
+            setZipCode('');
             navigation.navigate('PaymentScreen');
         }
     }
@@ -35,15 +37,12 @@ export const Cart = () => {
             {cart.totalItems > 0 &&
                 <C.ScrollViewArea>
                     <C.CartItemsView>
-                        {cart.items.map((item: ItemWithQuantity, index: number) => (
+                        {cart.items.map((item: ItemWithQuantity, index: number) => {
+                            
+                            return (
                             <C.ProductItemView key={index}>
                                 <C.ImageView>
-                                    <C.ImageItem 
-                                        onError={() => setValidImg(false)}
-                                        // source={validImg? {uri: item.thumbnailHd} : (require('./../../assets/images/default_item.png'))}
-                                        source={{uri: item.thumbnailHd}}
-                                        isValid={validImg}
-                                    />
+                                    <RenderImage url={item.thumbnailHd}/>
                                 </C.ImageView>
         
                                 <C.InfoView>
@@ -71,8 +70,8 @@ export const Cart = () => {
                                         </C.QuantityView>
                                     </C.BottomInfo>
                                 </C.InfoView>
-                            </C.ProductItemView>
-                        ))}
+                            </C.ProductItemView>);
+                        })}
                     </C.CartItemsView>
 
                     <C.ZipCodeView>
@@ -81,9 +80,9 @@ export const Cart = () => {
                             <C.ZipCodeInput 
                                 placeholder="XXXXX-XXX" 
                                 keyboardType="numeric"
-                                maxLength={8}
-                                value={zipCode}
-                                onChangeText={text => setZipCode(text)}
+                                maxLength={9}
+                                value={zipCode} 
+                                onChangeText={text => setZipCode(text.replace(/D/g,"").replace(/^(\d{5})(\d)/,"$1-$2").replace(/[, ]+/g, "").replace(/[. ]+/g, ""))}
                             />
                         </C.RowItems>
                     </C.ZipCodeView>

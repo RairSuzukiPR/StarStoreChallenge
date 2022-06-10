@@ -3,10 +3,14 @@ import React from "react";
 import { Dimensions } from "react-native";
 
 
-export const Container = styled.TouchableOpacity`
+export const PressableTag = styled.Pressable`
+
+`;
+
+export const Container = styled.Pressable`
     background-color: #fff;
     width: ${Dimensions.get('window').width / 2 - 30}px;
-    min-height: ${(Dimensions.get('window').height) * 0.30}px;
+    min-height: ${(Dimensions.get('window').height) * 0.33}px;
     margin: 10px;
     border-radius: 12px;
     elevation: 4;

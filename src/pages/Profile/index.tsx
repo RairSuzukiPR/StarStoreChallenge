@@ -22,7 +22,7 @@ export const Profile = () => {
                         activeOpacity={0.7}
                         onPress={() => navigation.navigate('OrderHistoryScreen')}
                     >
-                        <C.OptionButtonText>Historico de compras</C.OptionButtonText>
+                        <C.OptionButtonText>Histórico de compras</C.OptionButtonText>
                     </C.OptionButton>
                     <C.OptionButton
                         activeOpacity={0.7}

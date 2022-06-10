@@ -5,6 +5,7 @@ import { TabBar } from "../components/TabBar";
 import { HomeHeaderTitle } from "../components/HomeHeaderTitle";
 import CartStack from "./CartStack";
 import ProfileStack from "./ProfileStack";
+import HomeStack from "./HomeStack";
 
 
 const Tab = createBottomTabNavigator();
@@ -19,12 +20,13 @@ export default () => {
                 tabBarHideOnKeyboard: true
             }}
         >
-            <Tab.Screen name="Home" component={Home} options={{
+            {/* <Tab.Screen name="Home" component={Home} options={{
                 headerStyle: {
                     height: 110
                 },
                 headerTitle: () => <HomeHeaderTitle />,
-            }}/>
+            }}/> */}
+            <Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
             <Tab.Screen name="Cart" component={CartStack} options={{headerShown: false}}/>
             <Tab.Screen name="Profile" component={ProfileStack} options={{headerShown: false}}/>
         </Tab.Navigator>

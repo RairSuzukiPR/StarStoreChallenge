@@ -2,7 +2,6 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabBar } from "../components/TabBar";
 import CartStack from "./CartStack";
-import ProfileStack from "./ProfileStack";
 import HomeStack from "./HomeStack";
 import AuthStack from "./AuthStack";
 
@@ -14,7 +13,7 @@ export default () => {
     return (
         <Tab.Navigator 
             tabBar={props => <TabBar {...props} />}
-            initialRouteName='TabHome'
+            initialRouteName='Home'
             screenOptions={{
                 tabBarHideOnKeyboard: true
             }}

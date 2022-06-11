@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as C from './styles'
 import { useRoute } from "@react-navigation/native";
 import { useAppSelector } from "../../redux/hooks/useAppSelector";

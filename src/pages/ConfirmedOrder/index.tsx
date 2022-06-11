@@ -1,7 +1,6 @@
 import * as C from './styles'
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
-import { ItemWithQuantity } from '../../types/ItemWithQuantity';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import { ItemsList } from '../../components/ItemsList';

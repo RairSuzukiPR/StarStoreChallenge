@@ -9,36 +9,31 @@ export const api = {
         
         return json;
     },
-    signIn: (email: string, password: string) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                let json = {
-                    error: '',
-                    id: 1,
-                    token: '123',
-                    name: 'João'
-                };
-
-                resolve(json);
-            }, 1000);
+    signInWithEmail: async (email: string, password: string) => {
+        const res = await auth().signInWithEmailAndPassword(email, password).then((res) => {
+            return res;
+        }).catch((error) => {
+            console.log(error)
         })
+        
+        return res;
     },
-    signUp: (name: string, email: string, password: string) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                let json = {
-                    error: '',
-                    token: ''
-                };
-                if (email == 'erro@hotmail.com') {
-                    json.error = 'Email já existe!'
-                } else {
-                    json.token = '123';
-                }
-
-                resolve(json);
-            }, 1000);
+    signUp: async (email: string, password: string) => {
+        const res = await auth().createUserWithEmailAndPassword(email, password).then((res) => {
+            return res;
         })
+        .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+                error = email+" já está em uso!"
+            }
+            if (error.code === 'auth/invalid-email') {
+                error = "Endereço de e-mail inválido!"
+            }
+            // return {...aux, error: er};
+        });
+        
+        // console.log(res);
+        return res;
     },
     signInWithGoogleAsync: async () => {
         const { idToken } = await GoogleSignin.signIn();
@@ -51,10 +46,16 @@ export const api = {
         console.log(typeAuth)
         if (typeAuth == 'google') {
             auth().signOut().then(()=> {
-                console.log('user signed out')
+                console.log('user signed out from google')
             })
             await GoogleSignin.revokeAccess();
             await GoogleSignin.signOut();
+            return true;
+        }
+        if (typeAuth == 'email') {
+            auth().signOut().then(()=> {
+                console.log('user signed out from email')
+            })
             return true;
         }
     }

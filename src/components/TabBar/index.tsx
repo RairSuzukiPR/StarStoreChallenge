@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as C from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCartShopping, faHouse, faPlus, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faHouse, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Keyboard } from "react-native";
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs/src/types'
 import { useAppSelector } from "../../redux/hooks/useAppSelector";

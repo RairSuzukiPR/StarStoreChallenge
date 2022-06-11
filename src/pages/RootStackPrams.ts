@@ -9,4 +9,5 @@ export type RootStackParamList = {
     SignInScreen: undefined;
     Auth: undefined;
     Preload: undefined;
+    SignUpScreen: undefined;
 };

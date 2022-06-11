@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import React from "react";
 import { Dimensions } from "react-native";
 
 

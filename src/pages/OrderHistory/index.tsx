@@ -1,7 +1,7 @@
 import * as C from './styles'
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { Order } from '../../types/Order';
 import { useNavigation } from "@react-navigation/native";

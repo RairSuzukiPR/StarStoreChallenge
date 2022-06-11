@@ -26,12 +26,14 @@ export default () => {
                 },
                 headerRight: () => cart.items.length > 0 ? <EmptyCart /> : <></>
             }}/>
+
             <CartStack.Screen name="PaymentScreen" component={Payment} options={{
                 headerTitle: "Pagamento",
                 headerTitleStyle: {
                     fontSize: 22    
                 }
             }}/>
+
             <CartStack.Screen name="ConfirmedOrderScreen" component={ConfirmedOrder} options={{
                 headerTitle: "Pedido",
                 headerTitleStyle: {

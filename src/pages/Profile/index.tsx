@@ -9,23 +9,29 @@ import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { api } from '../../api';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { setEmail, setId, setName, setToken, setTypeAuth } from '../../redux/reducers/userReducer';
+import { LoadingArea } from '../../components/LoadingArea';
 
 
 type ScreenProp = NativeStackNavigationProp<RootStackParamList, 'OrderHistoryScreen'>;
 
 export const Profile = () => {
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation<ScreenProp>();
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.userReducer)
 
     const handleLogout = async () => {
+        setLoading(true);
         const res = await api.signOut(user.typeAuth);
+        setLoading(false);
+
         if (res) {
             dispatch(setId(0));
             dispatch(setName(''));
             dispatch(setEmail(''));
             dispatch(setToken(''));
             dispatch(setTypeAuth(''));
+            
             navigation.navigate('Preload');
         }
     }
@@ -68,6 +74,9 @@ export const Profile = () => {
                     <FontAwesomeIcon icon={faRightFromBracket} style={{minWidth: 18, minHeight: 18}}/>
                 </C.LogoutButton>
             </C.LogoutView>
+            {loading &&
+                <LoadingArea />
+            }
         </C.Container>
     );
 }

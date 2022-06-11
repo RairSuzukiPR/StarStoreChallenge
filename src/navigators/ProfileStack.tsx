@@ -4,13 +4,12 @@ import { Profile } from "../pages/Profile";
 import { useAppSelector } from "../redux/hooks/useAppSelector";
 import { OrderHistory } from "../pages/OrderHistory";
 import { OrderItem } from "../pages/OrderItem";
-import { SignIn } from "../pages/SignIn";
 
 
 const ProfileStack = createNativeStackNavigator();
 
 export default () => {
-    let token = useAppSelector(state => state.userReducer.token);
+    let name = useAppSelector(state => state.userReducer.name);
     return ( 
         <ProfileStack.Navigator screenOptions={{
             headerTitleStyle: {
@@ -18,7 +17,7 @@ export default () => {
             },
         }}>
             <ProfileStack.Screen name='ProfileScreen' component={Profile} options={{
-                headerTitle: "Meu Perfil",
+                headerTitle: "Olá, "+name.replace(/(^\w|\s\w)/g, m => m.toUpperCase()),
             }}/>
             <ProfileStack.Screen name='OrderHistoryScreen' component={OrderHistory} options={{
                 headerTitle: "Meus Pedidos",

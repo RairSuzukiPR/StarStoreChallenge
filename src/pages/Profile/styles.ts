@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import React from "react";
+
 
 export const Container = styled.SafeAreaView`
     flex: 1;
@@ -52,7 +52,6 @@ export const LoginView = styled.View`
     flex: 1;
     align-items: center;
     justify-content: center;
-    /* background-color: rgba(0,0,0,0.33); */
     margin: 20px;
     padding: 0 15px; 
 `;

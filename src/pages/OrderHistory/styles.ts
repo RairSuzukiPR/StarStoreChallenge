@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-import React from "react";
 
 export const Container = styled.SafeAreaView<{isEmpty: boolean}>`
     flex: 1;

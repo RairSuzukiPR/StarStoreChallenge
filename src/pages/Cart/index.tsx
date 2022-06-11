@@ -1,5 +1,5 @@
 import * as C from './styles'
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { changeItemQuantity, removeItem } from '../../redux/reducers/cartReducer';
@@ -18,7 +18,6 @@ type screenProp = NativeStackNavigationProp<RootStackParamList, 'PaymentScreen'>
 export const Cart = () => {
     const [zipCode, setZipCode] = useState('');
     const cart = useAppSelector(state => state.cartReducer)
-    const user = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
     const navigation = useNavigation<screenProp>();
 
@@ -27,13 +26,9 @@ export const Cart = () => {
             Alert.alert('Dados incompletos!', 'Favor preencher o CEP');
         } else if (!/^\d{5}-?\d{3}$/.test(zipCode)){
             Alert.alert('Dados incorretos!', 'Favor preencher o CEP corretamente');
-        } else {
-            if (!user.token) {
-                navigation.navigate('Auth');
-            } else {                
-                navigation.navigate('PaymentScreen');
-                setZipCode('');
-            }
+        } else {             
+            navigation.navigate('PaymentScreen');
+            setZipCode('');
         }
     }
 

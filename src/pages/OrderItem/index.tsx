@@ -1,8 +1,7 @@
 import * as C from './styles'
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { useRoute } from "@react-navigation/native";
-import { ItemWithQuantity } from '../../types/ItemWithQuantity';
 import { ItemsList } from '../../components/ItemsList';
 
 

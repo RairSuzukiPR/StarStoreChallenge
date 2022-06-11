@@ -39,11 +39,12 @@ export const Payment = () => {
     
     const navigation = useNavigation<confirmedOrderScreenProp>();
 
-    // useEffect(()=> { 
-    //     if(!user.token) {
-    //         navigation.navigate('SignInScreen');
-    //     }
-    // }, []);
+    useEffect(()=> { 
+        if(!user.token) {
+            navigation.pop()
+            navigation.navigate('Auth');
+        }
+    }, [user]); 
 
     const isEveryCampOk = () => { // melhor forma?
         let hasError = true;
@@ -74,8 +75,8 @@ export const Payment = () => {
             items: cart.items,
         }));
         dispatch(resetCart());
-        // redirect to confirmed order
-        navigation.navigate('ConfirmedOrderScreen'); //mandar essa compra por aqui direto e evitar de puxar na outra pagina e usar a outra pagina pra exibir qualquer pedido via props
+
+        navigation.navigate('ConfirmedOrderScreen');
     }
 
     return (

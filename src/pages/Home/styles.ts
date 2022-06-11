@@ -1,10 +1,7 @@
 import styled from "styled-components/native";
-import React from "react";
 import { FlatList } from "react-native";
 
 export const Container = styled.View`
-    /* background-color: #f2f2f2; */
-    /* background-color: rgba(0,0,0,0.3); */
     flex: 1;
 `;
 
@@ -17,4 +14,14 @@ export const TextField = styled.Text`
 
 export const ViewArea = styled.View`
     
+`;
+
+export const LoadingArea = styled.View`
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
 `;

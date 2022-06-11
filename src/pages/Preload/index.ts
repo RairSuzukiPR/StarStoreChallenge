@@ -6,28 +6,29 @@ export const Preload = () => {
     const user = useAppSelector(state => state.userReducer)
     const navigation = useNavigation<any>();
 
-    useEffect(()=> {
-        if (!user.token){
-            navigation.dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [
-                    { name: 'SignInScreen' },
-                  ],
-                })
-              );
-        } else {
-            navigation.dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [
-                    { name: 'Profile' },
-                  ],
-                })
-              );
-        }
-        
-    }, [user.token]) 
+	useEffect(()=> {
+		if (!user.token){
+
+			navigation.dispatch(
+				CommonActions.reset({
+					index: 0,
+					routes: [
+						{ name: 'SignInScreen' },
+					],
+				})
+			);
+			
+		} else {
+			navigation.dispatch(
+				CommonActions.reset({
+					index: 0,
+					routes: [
+						{ name: 'Profile' },
+					],
+				})
+			);
+		}
+	},[]) 
 
     return null;
 }

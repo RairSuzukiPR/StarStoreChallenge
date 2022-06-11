@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
     flex: 1;
 `;
 
@@ -34,7 +34,7 @@ export const InputText = styled.TextInput`
     border: 1px solid #dde;
 `;
 
-export const LoginButton = styled.TouchableOpacity`
+export const SignUpButton = styled.TouchableOpacity`
     width: 80%;
     padding: 10px;
     background-color: #1a1a1a;
@@ -51,34 +51,13 @@ export const TextButton = styled.Text`
     font-weight: bold;
 `;
 
-export const SignUpBtn = styled.TouchableOpacity`
-    margin-top: 15px;
+export const LoadingArea = styled.View`
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
 `;
-
-export const SignUpBtnText = styled.Text`
-    font-size: 16px;
-    color: #000;
-`;
-
-export const LoginOptions = styled.View`
-    flex-direction: row;
-`;
-
-export const LoginOpt = styled.TouchableOpacity`
-    flex-direction: row;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 7px;
-    margin: 10px 15px 0 0;
-    elevation: 4;
-`;
- 
-export const IconView = styled.View`
-    
-`;
-
-export const LabelText = styled.Text`
-    color: #000;
-    margin-top: 35px;
-`;
-

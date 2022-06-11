@@ -6,6 +6,7 @@ import { useAppSelector } from "../../redux/hooks/useAppSelector";
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { Item } from './../../types/Item'
 import { setItems } from '../../redux/reducers/itemsReducer';
+import { ActivityIndicator } from 'react-native';
 
 
 export const Home = () => {
@@ -46,7 +47,11 @@ export const Home = () => {
 
 	return (
 		<C.Container>
-			{loading && <C.TextField>Loading...</C.TextField>}
+			{loading && 
+				<C.LoadingArea>
+					<ActivityIndicator size='large' color='#000'/>
+				</C.LoadingArea>
+			}
 			{!loading &&  (
 			<>
 				<C.Items

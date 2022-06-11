@@ -1,5 +1,5 @@
 import * as C from './styles'
-import React, { useState } from "react";
+import React from "react";
 import { ItemWithQuantity } from '../../types/ItemWithQuantity';
 import { RenderImage } from '../RenderImage';
 
@@ -13,7 +13,6 @@ export const ItemsList = ({items}: Props) => {
     return(
         <C.Container>
             {items.map((item: ItemWithQuantity, index2: number) => {
-
 
                 return (
                     <C.ProductItemView key={index2}>

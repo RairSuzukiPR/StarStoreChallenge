@@ -11,6 +11,7 @@ import { resetCart } from '../../redux/reducers/cartReducer';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { RootStackParamList } from '../RootStackPrams';
+import { setId, setToken } from '../../redux/reducers/userReducer';
 
 
 type confirmedOrderScreenProp = NativeStackNavigationProp<RootStackParamList, 'ConfirmedOrderScreen'>;
@@ -38,19 +39,25 @@ export const Payment = () => {
     
     const navigation = useNavigation<confirmedOrderScreenProp>();
 
-    const isEveryCampFilled = () => { // melhor forma?
-        let hasError = false
+    // useEffect(()=> { 
+    //     if(!user.token) {
+    //         navigation.navigate('SignInScreen');
+    //     }
+    // }, []);
+
+    const isEveryCampOk = () => { // melhor forma?
+        let hasError = true;
 
         if (!(card.nameCardOwner !== '' && card.validThru.length == 5 && card.cvv.length == 3 && 
             card.cardNumber1.length == 4 && card.cardNumber2.length == 4 && 
             card.cardNumber3.length == 4 && card.cardNumber4.length == 4 )){
                 Alert.alert('Dados incompletos!', 'Favor preencher todos os dados.');
-                hasError = true;
+                hasError = false;
         }
 
         if (/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(card.validThru)){
             Alert.alert('Dados inconsistentes!', 'Favor preencher a data de expiração corretamente.');
-            hasError = true;
+            hasError = false;
         }
 
         return hasError;
@@ -70,12 +77,6 @@ export const Payment = () => {
         // redirect to confirmed order
         navigation.navigate('ConfirmedOrderScreen'); //mandar essa compra por aqui direto e evitar de puxar na outra pagina e usar a outra pagina pra exibir qualquer pedido via props
     }
-
-    useEffect(()=> {
-        if (/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(card.validThru)){
-            console.log('aasdasda')
-        }
-    }, [card])
 
     return (
         <C.Container>
@@ -215,7 +216,7 @@ export const Payment = () => {
 
                 <C.ConfirmPaymentBtn
                     activeOpacity={0.7}
-                    onPress={() => isEveryCampFilled() ? saveDataAndRedirect() : ''}
+                    onPress={() => isEveryCampOk() ? saveDataAndRedirect() : ''}
                 >
                     <C.BtnText>Confirmar pagamento</C.BtnText>
                 </C.ConfirmPaymentBtn>

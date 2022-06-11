@@ -13,13 +13,14 @@ import { RootStackParamList } from '../RootStackPrams';
 import { RenderImage } from './../../components/RenderImage'
 
 
-type paymentScreenProp = NativeStackNavigationProp<RootStackParamList, 'PaymentScreen'>;
+type screenProp = NativeStackNavigationProp<RootStackParamList, 'PaymentScreen'>;
 
 export const Cart = () => {
     const [zipCode, setZipCode] = useState('');
     const cart = useAppSelector(state => state.cartReducer)
+    const user = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
-    const navigation = useNavigation<paymentScreenProp>();
+    const navigation = useNavigation<screenProp>();
 
     const redirectToPayment = () => {
         if (zipCode.length != 9 ){
@@ -27,8 +28,12 @@ export const Cart = () => {
         } else if (!/^\d{5}-?\d{3}$/.test(zipCode)){
             Alert.alert('Dados incorretos!', 'Favor preencher o CEP corretamente');
         } else {
-            setZipCode('');
-            navigation.navigate('PaymentScreen');
+            if (!user.token) {
+                navigation.navigate('Auth');
+            } else {                
+                navigation.navigate('PaymentScreen');
+                setZipCode('');
+            }
         }
     }
 

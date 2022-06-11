@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "821595541020",
+    "project_id": "starstorechallenge",
+    "storage_bucket": "starstorechallenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821595541020:android:5407c41c5676c545fc19d9",
+        "android_client_info": {
+          "package_name": "com.starstorechallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821595541020-esf8fgq0a61c8voomouu48ikgomu6a8o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.starstorechallenge",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "821595541020-pj9ee2d6tcc7lcphk5n8udh12bok9bgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcMgaOwtFkHFJjcMz1fTVRAE9qblZKQzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821595541020-pj9ee2d6tcc7lcphk5n8udh12bok9bgt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

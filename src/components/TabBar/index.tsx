@@ -43,7 +43,7 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
                         case 'Cart':
                             icon = faCartShopping;
                         break;
-                        case 'Profile':
+                        case 'Auth':
                             icon = faUser;
                         break;
                     }

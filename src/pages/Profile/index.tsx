@@ -1,76 +1,73 @@
 import * as C from './styles'
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faRightFromBracket, faTruck, faUserPen, faWallet } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { RootStackParamList } from '../RootStackPrams';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import { api } from '../../api';
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
+import { setEmail, setId, setName, setToken, setTypeAuth } from '../../redux/reducers/userReducer';
 
 
-type OrderHistoryScreenProp = NativeStackNavigationProp<RootStackParamList, 'OrderHistoryScreen'>;
+type ScreenProp = NativeStackNavigationProp<RootStackParamList, 'OrderHistoryScreen'>;
 
 export const Profile = () => {
-    const [isLogged, setIsLogged] = useState(true);
-    const navigation = useNavigation<OrderHistoryScreenProp>();
+    const navigation = useNavigation<ScreenProp>();
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(state => state.userReducer)
+
+    const handleLogout = async () => {
+        const res = await api.signOut(user.typeAuth);
+        if (res) {
+            dispatch(setId(0));
+            dispatch(setName(''));
+            dispatch(setEmail(''));
+            dispatch(setToken(''));
+            dispatch(setTypeAuth(''));
+            navigation.navigate('Preload');
+        }
+    }
 
     return(
         <C.Container>
-            {isLogged &&
-            <>
-                <C.OptionsView>
-                    <C.OptionButton
-                        activeOpacity={0.7}
-                        onPress={() => navigation.navigate('OrderHistoryScreen')}
-                    >
-                        <C.OptionButtonText>Histórico de compras</C.OptionButtonText>
-                    </C.OptionButton>
-                    <C.OptionButton
-                        activeOpacity={0.7}
-                    >
-                        <C.OptionButtonText>Editar Perfil</C.OptionButtonText>
-                    </C.OptionButton>
-                    <C.OptionButton
-                        activeOpacity={0.7}
-                    >
-                        <C.OptionButtonText>Carteira</C.OptionButtonText>
-                    </C.OptionButton>
-                    <C.OptionButton
-                        activeOpacity={0.7}
-                    >
-                        <C.OptionButtonText>Endereços</C.OptionButtonText>
-                    </C.OptionButton>
-                </C.OptionsView>
-                <C.LogoutView>
-                    <C.LogoutText>Logout</C.LogoutText>
-                    <C.LogoutButton
-                        activeOpacity={0.7}
-                    >
-                        <FontAwesomeIcon icon={faRightFromBracket} style={{minWidth: 18, minHeight: 18}}/>
-                    </C.LogoutButton>
-                </C.LogoutView>
-            </>
-            }
-            {!isLogged &&
-            <>
-                <C.LoginView>
-                    <C.InputAreaView>
-                        <C.InputLabel>Email:</C.InputLabel>
-                        <C.InputText 
-                            keyboardType = 'email-address'
-                        />
-                    </C.InputAreaView>
-                    <C.InputAreaView>
-                        <C.InputLabel>Senha:</C.InputLabel>
-                        <C.InputText 
-                            secureTextEntry={true}
-                        />
-                    </C.InputAreaView>
-                    <C.LoginButton>
-                        <C.TextButton>Login</C.TextButton>
-                    </C.LoginButton>
-                </C.LoginView>
-            </>
-            }
+            <C.OptionsView>
+                <C.OptionButton
+                    activeOpacity={0.7}
+                    onPress={() => navigation.navigate('OrderHistoryScreen')}
+                >
+                    <FontAwesomeIcon icon={faTruck} style={{minWidth: 18, minHeight: 18}}/>  
+                    <C.OptionButtonText>Histórico de compras</C.OptionButtonText>
+                </C.OptionButton>
+                <C.OptionButton
+                    activeOpacity={0.7}
+                >
+                    <FontAwesomeIcon icon={faUserPen} style={{minWidth: 18, minHeight: 18}}/>   
+                    <C.OptionButtonText>Editar Perfil</C.OptionButtonText>
+                </C.OptionButton>
+                <C.OptionButton
+                    activeOpacity={0.7}
+                >
+                    <FontAwesomeIcon icon={faWallet} style={{minWidth: 18, minHeight: 18}}/>  
+                    <C.OptionButtonText>Carteira</C.OptionButtonText>
+                </C.OptionButton>
+                <C.OptionButton
+                    activeOpacity={0.7}
+                >
+                    <FontAwesomeIcon icon={faLocationArrow} style={{minWidth: 18, minHeight: 18}}/>  
+                    <C.OptionButtonText>Endereços</C.OptionButtonText>
+                </C.OptionButton>
+            </C.OptionsView>
+            <C.LogoutView>
+                <C.LogoutText>Logout</C.LogoutText>
+                <C.LogoutButton
+                    activeOpacity={0.7}
+                    onPress={handleLogout}
+                >
+                    <FontAwesomeIcon icon={faRightFromBracket} style={{minWidth: 18, minHeight: 18}}/>
+                </C.LogoutButton>
+            </C.LogoutView>
         </C.Container>
     );
 }

@@ -16,12 +16,15 @@ export const OptionsView = styled.View`
 `;
 
 export const OptionButton = styled.TouchableOpacity`
-    padding: 15px 0;
+    padding: 20px 0;
+    flex-direction: row;
+    align-items: center;
 `;
 
 export const OptionButtonText = styled.Text`
     font-size: 15px;
     color: #000;
+    margin-left: 15px;
 `;
 
 export const LogoutView = styled.View`

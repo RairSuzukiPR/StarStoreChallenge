@@ -6,4 +6,7 @@ export type RootStackParamList = {
     OrderHistoryScreen: undefined;
     OrderItemScreen: {index: number};
     ProductItemScreen: {index: number};
+    SignInScreen: undefined;
+    Auth: undefined;
+    Preload: undefined;
 };

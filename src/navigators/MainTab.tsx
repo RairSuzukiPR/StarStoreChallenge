@@ -1,11 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home } from '../pages/Home' 
 import { TabBar } from "../components/TabBar";
-import { HomeHeaderTitle } from "../components/HomeHeaderTitle";
 import CartStack from "./CartStack";
 import ProfileStack from "./ProfileStack";
 import HomeStack from "./HomeStack";
+import AuthStack from "./AuthStack";
 
 
 const Tab = createBottomTabNavigator();
@@ -20,15 +19,9 @@ export default () => {
                 tabBarHideOnKeyboard: true
             }}
         >
-            {/* <Tab.Screen name="Home" component={Home} options={{
-                headerStyle: {
-                    height: 110
-                },
-                headerTitle: () => <HomeHeaderTitle />,
-            }}/> */}
             <Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
             <Tab.Screen name="Cart" component={CartStack} options={{headerShown: false}}/>
-            <Tab.Screen name="Profile" component={ProfileStack} options={{headerShown: false}}/>
+            <Tab.Screen name="Auth" component={AuthStack} options={{headerShown: false}}/>
         </Tab.Navigator>
     );
 }

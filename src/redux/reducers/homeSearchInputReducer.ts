@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'; 
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'; 
 
 
 const slice = createSlice({
@@ -7,7 +7,7 @@ const slice = createSlice({
         inputText: ''
     },
     reducers: {
-        setInputText: (state, action) => {
+        setInputText: (state, action: PayloadAction<string>) => {
             state.inputText = action.payload;
         }
     }

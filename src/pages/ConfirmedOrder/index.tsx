@@ -6,7 +6,7 @@ import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import { ItemsList } from '../../components/ItemsList';
 
 export const ConfirmedOrder = () => {
-    const lastOrder = useAppSelector(state => state.orderReducer) //alterar pro ultimo index
+    const lastOrder = useAppSelector(state => state.orderReducer) 
 
     useEffect(()=> {
         console.log(lastOrder.allOrders.length)

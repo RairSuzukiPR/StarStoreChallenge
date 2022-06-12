@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { api } from '../../api';
 import { Platform } from 'react-native';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
-import { setId, setToken, setEmail, setName, setTypeAuth } from '../../redux/reducers/userReducer';
+import { setUser } from '../../redux/reducers/userReducer';
 import * as C from './styles';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
@@ -27,21 +27,22 @@ export const SignIn = () => {
     const navigation = useNavigation<screenProp>();
     const dispatch = useAppDispatch();
 
-    // criar func pra dar o dispatch em td pra n repetir
+
     const handleEmailLogin = async () => {
         if(emailInput && password){
             setLoading(true);
             const res = await api.signInWithEmail(emailInput, password);;
             const token = await auth().currentUser?.getIdToken();
             setLoading(false);
-
+            
             if (res) {
-                dispatch(setToken(token ? token : res.user.uid));
-                // criar hash para o id baseado no uid e email?
-                // dispatch(setId(userInfo.user.uid)) 
-                dispatch(setName(emailInput.substring(0, emailInput.lastIndexOf("@")))) 
-                dispatch(setEmail(emailInput))
-                dispatch(setTypeAuth('email'));
+                dispatch(setUser({
+                    id: res.user.uid,
+                    name: emailInput.substring(0, emailInput.lastIndexOf("@")),
+                    email: emailInput,
+                    token: token ? token : res.user.uid,
+                    typeAuth: 'email'
+                }))
                 navigation.navigate('Preload');
             } else {
                 Alert.alert('Erro', '')
@@ -59,16 +60,36 @@ export const SignIn = () => {
         setLoading(false);
 
         if(user && googleCredential){
-            dispatch(setToken(googleCredential.token));
-            //criar hash para o id baseado no uid e email?
-            // dispatch(setId(userInfo.user.uid)) 
-            dispatch(setName(user.user.displayName ? user.user.displayName: 'error' ))
-            dispatch(setEmail(user.user.email ? user.user.email : 'error'))
-            dispatch(setTypeAuth('google'));
+            dispatch(setUser({
+                id: user.user.uid, 
+                name: user.user.displayName ? user.user.displayName: emailInput.substring(0, emailInput.lastIndexOf("@")),
+                email: user.user.email ? user.user.email : emailInput,
+                token: googleCredential.token,
+                typeAuth: 'google'
+            }))
             navigation.navigate('Preload');
         } else {
             Alert.alert('Erro', 'Algo inesperado aconteceu, tente novamente.');
         }
+    }
+
+    const handleFacebookLogin = async () => {
+        setLoading(true)
+        const res = await api.signInWithFacebook();
+        const token = await auth().currentUser?.getIdToken();
+        setLoading(false)
+
+        if (res) {
+            dispatch(setUser({
+                id: res.user.uid,
+                name: res.user.displayName ? res.user.displayName : '',
+                email: res.user.email ? res.user.email : '',
+                token: token ? token : res.user.uid,
+                typeAuth: 'facebook'
+            }))
+            navigation.navigate('Preload');
+        }
+        
     }
 
     return(
@@ -119,7 +140,9 @@ export const SignIn = () => {
                             <FontAwesomeIcon icon={faGoogle} style={{color: '#DB4437'}}/>
                         </C.IconView>
                     </C.LoginOpt>
-                    <C.LoginOpt>
+                    <C.LoginOpt
+                        onPress={handleFacebookLogin}
+                    >
                         <C.IconView>
                             <FontAwesomeIcon icon={faFacebook} style={{color: '#4267B2'}}/>
                         </C.IconView>

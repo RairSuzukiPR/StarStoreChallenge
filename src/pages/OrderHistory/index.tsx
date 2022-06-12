@@ -12,14 +12,15 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/ty
 type OrderItemScreenProp = NativeStackNavigationProp<RootStackParamList, 'OrderItemScreen'>;
 
 export const OrderHistory = () => {
-    const orders = useAppSelector(state => state.orderReducer.allOrders)
+    const orders = useAppSelector(state => state.orderReducer)
+    const user = useAppSelector(state => state.userReducer)
     const navigation = useNavigation<OrderItemScreenProp>();
 
     return(
-        <C.Container isEmpty={orders.length == 0}>
-            {orders.length > 0 && 
+        <C.Container isEmpty={orders.allOrders.length == 0}>
+            {orders.allOrders.length > 0 && 
                 <C.ScrollViewArea>
-                {orders.map((order: Order, index: number) => (
+                {orders.allOrders.map((order: Order, index: number) => (
                     <C.OrderItemView key={index}
                         activeOpacity={0.7}
                         onPress={() => navigation.navigate('OrderItemScreen', {index})}
@@ -39,7 +40,7 @@ export const OrderHistory = () => {
                 <C.FixView></C.FixView>
             </C.ScrollViewArea>
             }
-            {orders.length == 0 && 
+            {orders.allOrders.length == 0 && 
                 <C.InfoText>Você ainda não possui compras.</C.InfoText>
             }
         </C.Container>

@@ -3,18 +3,18 @@ import { Order } from '../../types/Order';
 
 
 type stateOrder = {
-    idUserOrder: number,
+    idUserOrder: string,
     allOrders: Order[]
 }
 
 const slice = createSlice({
     name: 'order',
     initialState: {
-        idUserOrder: 1,
+        idUserOrder: '',
         allOrders: []
     } as stateOrder,
     reducers: {
-        setIdUserOrder: (state, action: PayloadAction<number>)=> {
+        setIdUserOrder: (state, action: PayloadAction<string>)=> {
             state.idUserOrder = action.payload;
         },
         saveOrder: (state, action: PayloadAction<Order>) => {
@@ -26,10 +26,14 @@ const slice = createSlice({
                 totalPrice: action.payload.totalPrice,
                 items: action.payload.items
             });
+        },
+        resetAllOrders: (state) => {
+            state.idUserOrder = '';
+            state.allOrders = [];
         }
     }
 })
 
-export const { setIdUserOrder, saveOrder} = slice.actions;
+export const { setIdUserOrder, saveOrder, resetAllOrders} = slice.actions;
 
 export default slice.reducer;

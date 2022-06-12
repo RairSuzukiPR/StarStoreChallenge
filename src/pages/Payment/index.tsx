@@ -11,7 +11,6 @@ import { resetCart } from '../../redux/reducers/cartReducer';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { RootStackParamList } from '../RootStackPrams';
-import { setId, setToken } from '../../redux/reducers/userReducer';
 
 
 type confirmedOrderScreenProp = NativeStackNavigationProp<RootStackParamList, 'ConfirmedOrderScreen'>;
@@ -41,10 +40,10 @@ export const Payment = () => {
 
     useEffect(()=> { 
         if(!user.token) {
-            navigation.pop()
+            navigation.popToTop()
             navigation.navigate('Auth');
         }
-    }, [user]); 
+    }, [user.token]); 
 
     const isEveryCampOk = () => { // melhor forma?
         let hasError = true;
@@ -56,7 +55,7 @@ export const Payment = () => {
                 hasError = false;
         }
 
-        if (/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(card.validThru)){
+        if (!/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(card.validThru)){
             Alert.alert('Dados inconsistentes!', 'Favor preencher a data de expiração corretamente.');
             hasError = false;
         }

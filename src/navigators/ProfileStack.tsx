@@ -9,7 +9,7 @@ import { OrderItem } from "../pages/OrderItem";
 const ProfileStack = createNativeStackNavigator();
 
 export default () => {
-    let name = useAppSelector(state => state.userReducer.name);
+    let user = useAppSelector(state => state.userReducer);
     return ( 
         <ProfileStack.Navigator screenOptions={{
             headerTitleStyle: {
@@ -17,7 +17,7 @@ export default () => {
             },
         }}>
             <ProfileStack.Screen name='ProfileScreen' component={Profile} options={{
-                headerTitle: "Olá, "+name.replace(/(^\w|\s\w)/g, m => m.toUpperCase()),
+                headerTitle: "Olá, "+user.name.replace(/(^\w|\s\w)/g, m => m.toUpperCase()),
             }}/>
             <ProfileStack.Screen name='OrderHistoryScreen' component={OrderHistory} options={{
                 headerTitle: "Meus Pedidos",

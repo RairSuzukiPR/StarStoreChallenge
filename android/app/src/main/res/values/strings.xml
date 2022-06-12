@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">StarStoreChallenge</string>
+
+    <string name="facebook_app_id">4985701684871523</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">d69538362b22e9541c184913035c4106</string>
 </resources>

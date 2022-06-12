@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 export const Container = styled.SafeAreaView`
     flex: 1;
     justify-content: space-between;
-    /* background-color: gray; */
 `;
 
 export const OptionsView = styled.View`
@@ -27,7 +26,7 @@ export const OptionButtonText = styled.Text`
     margin-left: 15px;
 `;
 
-export const LogoutView = styled.View`
+export const LogoutArea = styled.TouchableOpacity`
     background-color: #fff;
     border-radius: 15px;
     elevation: 4;

@@ -8,8 +8,9 @@ import { RootStackParamList } from '../RootStackPrams';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { api } from '../../api';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
-import { setEmail, setId, setName, setToken, setTypeAuth } from '../../redux/reducers/userReducer';
+import { resetUser } from '../../redux/reducers/userReducer';
 import { LoadingArea } from '../../components/LoadingArea';
+import { resetAllOrders } from '../../redux/reducers/orderReducer';
 
 
 type ScreenProp = NativeStackNavigationProp<RootStackParamList, 'OrderHistoryScreen'>;
@@ -26,12 +27,8 @@ export const Profile = () => {
         setLoading(false);
 
         if (res) {
-            dispatch(setId(0));
-            dispatch(setName(''));
-            dispatch(setEmail(''));
-            dispatch(setToken(''));
-            dispatch(setTypeAuth(''));
-            
+            dispatch(resetUser());
+            dispatch(resetAllOrders()); //apagar ?
             navigation.navigate('Preload');
         }
     }
@@ -65,15 +62,18 @@ export const Profile = () => {
                     <C.OptionButtonText>Endereços</C.OptionButtonText>
                 </C.OptionButton>
             </C.OptionsView>
-            <C.LogoutView>
+            <C.LogoutArea
+                activeOpacity={0.7}
+                onPress={handleLogout}
+            >   
                 <C.LogoutText>Logout</C.LogoutText>
-                <C.LogoutButton
+                {/* <C.LogoutButton
                     activeOpacity={0.7}
                     onPress={handleLogout}
-                >
+                > */}
                     <FontAwesomeIcon icon={faRightFromBracket} style={{minWidth: 18, minHeight: 18}}/>
-                </C.LogoutButton>
-            </C.LogoutView>
+                {/* </C.LogoutButton> */}
+            </C.LogoutArea>
             {loading &&
                 <LoadingArea />
             }

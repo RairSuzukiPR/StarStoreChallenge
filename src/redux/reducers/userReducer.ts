@@ -1,42 +1,34 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from './../../types/User'
 
-
-type userState = {
-    id: number
-    name: string,
-    email: string,
-    token: string,
-    typeAuth: string
-}
 
 const slice = createSlice({
     name: 'user',
     initialState: {
-        id: 0,
+        id: '',
         name: '',
         email: '',
         token: '',
         typeAuth: ''
-    } as userState,
+    } as User,
     reducers: {
-        setId: (state, action: PayloadAction<number>)=> {
-            state.id = action.payload;
+        setUser: (state, action: PayloadAction<User>) => {
+            state.id = action.payload.id;
+            state.name = action.payload.name;
+            state.email = action.payload.email;
+            state.token = action.payload.token;
+            state.typeAuth = action.payload.typeAuth;
         },
-        setName: (state, action: PayloadAction<string>)=> {
-            state.name = action.payload;
-        },
-        setEmail: (state, action: PayloadAction<string>)=> {
-            state.email = action.payload;
-        },
-        setToken: (state, action: PayloadAction<string>) => {
-            state.token = action.payload;
-        },
-        setTypeAuth: (state, action: PayloadAction<string>) => {
-            state.typeAuth = action.payload;
+        resetUser: (state) => {
+            state.id = '';
+            state.name = '';
+            state.email = '';
+            state.token = '';
+            state.typeAuth = '';
         }
     }
 })
 
-export const { setId, setName, setEmail, setToken, setTypeAuth } = slice.actions;
+export const { setUser, resetUser } = slice.actions;
 
 export default slice.reducer;

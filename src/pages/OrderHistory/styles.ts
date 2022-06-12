@@ -20,6 +20,7 @@ export const OrderItemView = styled.TouchableOpacity`
     padding: 15px;
     margin: 20px 20px 0 20px;
     border-radius: 12px;
+    elevation: 4;
 `;
 
 export const LeftInfoView = styled.View`

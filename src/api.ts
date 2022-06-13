@@ -1,6 +1,8 @@
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import database from '@react-native-firebase/database';
+
 
 export const api = {
     getItems: async () => {
@@ -73,5 +75,27 @@ export const api = {
             })
             return true;
         }
+    },
+    getOrdersFromFirebase: async (userId: string) => {
+        let aux = [];
+        const json = await database().ref('users/'+userId+'/orders').once('value').then(snapshot => {
+            return snapshot.val();
+        });
+
+        if (json) {
+            for (var key in json) {
+                var value = json[key];
+                aux.push(value)
+            }                
+        }
+
+        return aux;
+    },
+    checkAmountOrders: async (userId: string) => {
+        const json = await database().ref('users/'+userId+'/orders').once('value').then(snapshot => {
+            return snapshot.numChildren();
+        });
+        
+        return json;
     }
 }

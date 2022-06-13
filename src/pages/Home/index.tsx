@@ -29,7 +29,8 @@ export const Home = () => {
 			}
 			setLoading(false);
 		};
-		requestItems();			
+
+		requestItems();	
 	}, []);
   
     
@@ -42,7 +43,6 @@ export const Home = () => {
 			);
 		}
     }, [inputText.inputText])
-	
 
 
 	return (

@@ -28,7 +28,7 @@ export const Profile = () => {
 
         if (res) {
             dispatch(resetUser());
-            dispatch(resetAllOrders()); //apagar ?
+            dispatch(resetAllOrders()); 
             navigation.navigate('Preload');
         }
     }
@@ -75,7 +75,7 @@ export const Profile = () => {
                 {/* </C.LogoutButton> */}
             </C.LogoutArea>
             {loading &&
-                <LoadingArea />
+                <LoadingArea bgColor='default' indicatorColor='#fff'/>
             }
         </C.Container>
     );

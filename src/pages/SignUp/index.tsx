@@ -3,7 +3,7 @@ import React, { MutableRefObject, useRef, useState } from "react";
 import { ActivityIndicator, Alert, Platform } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
-import { setEmail, setName, setToken, setTypeAuth } from '../../redux/reducers/userReducer';
+import { setUser } from '../../redux/reducers/userReducer';
 import { api } from '../../api';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
@@ -33,12 +33,13 @@ export const SignUp = () => {
             setLoading(false);
 
             if (res) {
-                dispatch(setToken(token ? token : res.user.uid));
-                //criar hash para o id baseado no uid e email?
-                // dispatch(setId(userInfo.user.uid)) 
-                dispatch(setName(userName))
-                dispatch(setEmail(userEmail))
-                dispatch(setTypeAuth('email'));
+                dispatch(setUser({
+                    id: res.user.uid,
+                    name: userName,
+                    email: userEmail,
+                    token: token ? token : res.user.uid,
+                    typeAuth: 'email'
+                }))
                 navigation.navigate('Preload');
             } else {
                 // da um jeito de pegar o erro e exibir aq pra n exibir na api

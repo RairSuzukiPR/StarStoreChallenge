@@ -80,7 +80,7 @@ export const BottomText = styled.Text`
 
 export const ConfirmView = styled.View`
     background-color: #fff;
-    margin: 20px;
+    margin: 20px 20px 0 20px;
     padding: 15px;
     border-radius: 15px;
     elevation: 4;

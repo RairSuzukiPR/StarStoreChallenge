@@ -11,7 +11,7 @@ import { resetCart } from '../../redux/reducers/cartReducer';
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { RootStackParamList } from '../RootStackPrams';
-
+import database from '@react-native-firebase/database';
 
 type confirmedOrderScreenProp = NativeStackNavigationProp<RootStackParamList, 'ConfirmedOrderScreen'>;
 
@@ -64,17 +64,28 @@ export const Payment = () => {
     }
 
     const saveDataAndRedirect = () => {
-        dispatch(setIdUserOrder(user.id));
-        dispatch(saveOrder({
+        let order = {
             cardNumber: parseInt(card.cardNumber1+card.cardNumber2+card.cardNumber3+card.cardNumber4),
             nameCardOwner: card.nameCardOwner,
             validThru: card.validThru,
             cvv: parseInt(card.cvv),
             totalPrice: cart.totalPrice,
             items: cart.items,
-        }));
-        dispatch(resetCart());
+        }
+        
+        dispatch(setIdUserOrder(user.id))
+        dispatch(saveOrder(order))
+        // dispatch(saveTempOrder(order));
 
+        const newReference = database().ref('users/'+user.id+'/orders').push();
+		newReference.set({
+            cardNumber: 'XXXX-XXXX-XXXX-'+ order.cardNumber.toString().substr(12, order.cardNumber.toString().length),
+            nameCardOwner: order.nameCardOwner,
+            totalPrice: order.totalPrice,
+            items: order.items
+        }).then(() => console.log('Data updated.'));
+
+        dispatch(resetCart());
         navigation.navigate('ConfirmedOrderScreen');
     }
 

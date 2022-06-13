@@ -14,6 +14,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/ty
 import { RootStackParamList } from '../RootStackPrams';
 import { MutableRefObject } from 'react-test-renderer/node_modules/@types/react';
 import { LoadingArea } from '../../components/LoadingArea';
+import { setAllOrders } from '../../redux/reducers/orderReducer';
 
 
 type screenProp = NativeStackNavigationProp<RootStackParamList, 'Preload'>;
@@ -43,6 +44,7 @@ export const SignIn = () => {
                     token: token ? token : res.user.uid,
                     typeAuth: 'email'
                 }))
+                updateCache(res.user.uid);
                 navigation.navigate('Preload');
             } else {
                 Alert.alert('Erro', '')
@@ -67,6 +69,7 @@ export const SignIn = () => {
                 token: googleCredential.token,
                 typeAuth: 'google'
             }))
+            updateCache(user.user.uid);
             navigation.navigate('Preload');
         } else {
             Alert.alert('Erro', 'Algo inesperado aconteceu, tente novamente.');
@@ -87,9 +90,18 @@ export const SignIn = () => {
                 token: token ? token : res.user.uid,
                 typeAuth: 'facebook'
             }))
+            updateCache(res.user.uid);
             navigation.navigate('Preload');
         }
         
+    }
+
+    const updateCache = async (userId: string) => {
+        const orders = await api.getOrdersFromFirebase(userId);
+        console.log(orders)
+        if (orders){
+            dispatch(setAllOrders(orders))
+        }
     }
 
     return(
@@ -147,15 +159,15 @@ export const SignIn = () => {
                             <FontAwesomeIcon icon={faFacebook} style={{color: '#4267B2'}}/>
                         </C.IconView>
                     </C.LoginOpt>
-                    <C.LoginOpt>
+                    {/* <C.LoginOpt>
                         <C.IconView>
                             <FontAwesomeIcon icon={faApple} style={{color: '#555555'}}/>
                         </C.IconView>
-                    </C.LoginOpt>
+                    </C.LoginOpt> */}
                 </C.LoginOptions>
             </C.KeyboardArea>
             {loading &&
-                <LoadingArea />
+                <LoadingArea bgColor='default' indicatorColor='#fff'/>
             }
 
         </C.Container>

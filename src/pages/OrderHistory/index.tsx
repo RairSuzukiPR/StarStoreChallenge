@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
-import { Order } from '../../types/Order';
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from '../RootStackPrams';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
@@ -14,7 +13,6 @@ type OrderItemScreenProp = NativeStackNavigationProp<RootStackParamList, 'OrderI
 
 export const OrderHistory = () => {
     const orders = useAppSelector(state => state.orderReducer.allOrders)
-    const user = useAppSelector(state => state.userReducer)
     const navigation = useNavigation<OrderItemScreenProp>();
 
 

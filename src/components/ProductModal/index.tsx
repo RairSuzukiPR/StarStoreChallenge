@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as C from './styles'
 import { Item } from './../../types/Item'
 
@@ -11,8 +11,6 @@ type Props = {
 }
 
 export const ProductModal = ({visibility, item, validImg, closeModalFunc}: Props) => {
-    const [quantity, setQuantity] = useState(1);
-    const [totalPrice, setTotalPrice] = useState(item.price);
 
     return (
         <C.Container 
@@ -39,7 +37,7 @@ export const ProductModal = ({visibility, item, validImg, closeModalFunc}: Props
                             <C.ProductInfo>Data: {item.date}</C.ProductInfo>
                             <C.ProductInfo>Vendedor: {item.seller}</C.ProductInfo>
                             <C.ProductInfo>cep: {item.zipcode}</C.ProductInfo>
-                            <C.Price>R$ {totalPrice.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.Price>
+                            <C.Price>R$ {item.price.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</C.Price>
                         </C.BottomInfo>
                     </C.InfoArea>
 

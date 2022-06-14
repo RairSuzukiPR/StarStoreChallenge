@@ -25,7 +25,7 @@ export const SignUp = () => {
     const navigation = useNavigation<screenProp>();
     const dispatch = useAppDispatch();
 
-    const handleSignUp = async () => {// regex email?
+    const handleSignUp = async () => {
         if (userName && userEmail && password.length >= 6 && passwordConfirm && (password && passwordConfirm)) {
             setLoading(true);
             const res = await api.signUp(userEmail, password);
@@ -42,7 +42,6 @@ export const SignUp = () => {
                 }))
                 navigation.navigate('Preload');
             } else {
-                // da um jeito de pegar o erro e exibir aq pra n exibir na api
                 Alert.alert('Erro', '')
             }            
         } else if ((password != passwordConfirm) || password.length <= 6 || passwordConfirm.length <= 6 ){

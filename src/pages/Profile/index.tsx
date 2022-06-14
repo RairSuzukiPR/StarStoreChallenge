@@ -67,12 +67,7 @@ export const Profile = () => {
                 onPress={handleLogout}
             >   
                 <C.LogoutText>Logout</C.LogoutText>
-                {/* <C.LogoutButton
-                    activeOpacity={0.7}
-                    onPress={handleLogout}
-                > */}
                     <FontAwesomeIcon icon={faRightFromBracket} style={{minWidth: 18, minHeight: 18}}/>
-                {/* </C.LogoutButton> */}
             </C.LogoutArea>
             {loading &&
                 <LoadingArea bgColor='default' indicatorColor='#fff'/>

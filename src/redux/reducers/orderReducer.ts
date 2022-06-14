@@ -4,8 +4,7 @@ import { Order } from '../../types/Order';
 
 type stateOrder = {
     idUserOrder: string,
-    allOrders: Order[],
-    tempOrder: Order
+    allOrders: Order[]
 }
 
 const slice = createSlice({
@@ -36,16 +35,6 @@ const slice = createSlice({
                 items: action.payload.items
             });
         },
-        // saveTempOrder: (state, action: PayloadAction<Order>) => {
-        //     state.tempOrder = {
-        //         cardNumber: action.payload.cardNumber,
-        //         nameCardOwner: action.payload.nameCardOwner,
-        //         validThru: action.payload.validThru,
-        //         cvv: action.payload.cvv,
-        //         totalPrice: action.payload.totalPrice,
-        //         items: action.payload.items
-        //     };
-        // },
         resetAllOrders: (state) => {
             state.idUserOrder = '';
             state.allOrders = [];

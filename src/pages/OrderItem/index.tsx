@@ -16,7 +16,7 @@ export const OrderItem = () => {
                     <C.ConfirmTitle>Pedido #{route.params.index+1}</C.ConfirmTitle>
                     <C.AmountInfo>
                         <C.ConfirmText>Cartão</C.ConfirmText>
-                        <C.ConfirmPrice>XXXX-XXXX-XXXX-{(orders[route.params.index].cardNumber.toString().substr(12, 4))}</C.ConfirmPrice>
+                        <C.ConfirmPrice>XXXX-XXXX-XXXX-{(orders[route.params.index].cardNumber.toString())}</C.ConfirmPrice>
                     </C.AmountInfo>
                     <C.AmountInfo>
                         <C.ConfirmText>Frete</C.ConfirmText>

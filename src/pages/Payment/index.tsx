@@ -45,7 +45,7 @@ export const Payment = () => {
         }
     }, [user.token]); 
 
-    const isEveryCampOk = () => { // melhor forma?
+    const isEveryCampOk = () => { 
         let hasError = true;
 
         if (!(card.nameCardOwner !== '' && card.validThru.length == 5 && card.cvv.length == 3 && 
@@ -75,11 +75,10 @@ export const Payment = () => {
         
         dispatch(setIdUserOrder(user.id))
         dispatch(saveOrder(order))
-        // dispatch(saveTempOrder(order));
 
         const newReference = database().ref('users/'+user.id+'/orders').push();
 		newReference.set({
-            cardNumber: 'XXXX-XXXX-XXXX-'+ order.cardNumber.toString().substr(12, order.cardNumber.toString().length),
+            cardNumber: order.cardNumber.toString().substr(12, order.cardNumber.toString().length),
             nameCardOwner: order.nameCardOwner,
             totalPrice: order.totalPrice,
             items: order.items

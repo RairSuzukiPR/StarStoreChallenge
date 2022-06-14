@@ -56,8 +56,6 @@ export const Price = styled.Text`
 `;
 
 export const AddCartBtn = styled.TouchableOpacity`
-    /* width: 13px;
-    height: 15px; */
     background-color: #1A1A1A;
     justify-content: space-between;
     align-items: center;

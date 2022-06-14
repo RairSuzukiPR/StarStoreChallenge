@@ -1,11 +1,9 @@
 import * as C from './styles'
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import { ItemsList } from '../../components/ItemsList';
-import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
-import { resetAllOrders } from '../../redux/reducers/orderReducer';
 
 export const ConfirmedOrder = () => {
      const lastOrder = useAppSelector(state => state.orderReducer) 

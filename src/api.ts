@@ -57,7 +57,6 @@ export const api = {
         return auth().signInWithCredential(facebookCredential);
     },
     signOut: async (typeAuth: string) => {
-        console.log(typeAuth)
         if (typeAuth == 'google') {
             auth().signOut().then(()=> {
                 console.log('user signed out from google')
@@ -90,12 +89,5 @@ export const api = {
         }
 
         return aux;
-    },
-    checkAmountOrders: async (userId: string) => {
-        const json = await database().ref('users/'+userId+'/orders').once('value').then(snapshot => {
-            return snapshot.numChildren();
-        });
-        
-        return json;
     }
 }

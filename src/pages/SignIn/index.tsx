@@ -98,7 +98,6 @@ export const SignIn = () => {
 
     const updateCache = async (userId: string) => {
         const orders = await api.getOrdersFromFirebase(userId);
-        console.log(orders)
         if (orders){
             dispatch(setAllOrders(orders))
         }
